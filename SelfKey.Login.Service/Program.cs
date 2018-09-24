@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using SelfKey.Login.Service;
 
-namespace SelfKey.LoginService
+namespace SelfKey.Login.Service
 {
     public class Program
     {
