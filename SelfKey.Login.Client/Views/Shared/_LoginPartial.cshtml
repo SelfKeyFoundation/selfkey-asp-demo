@@ -1,0 +1,15 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    string username = User.Identity.Name ?? User.FindFirst("preferred_username").Value;
+
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-text">@username</li>
+        <li class="navbar-text"><a asp-area="" asp-controller="Account" asp-action="SignOut">Sign Out</a></li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-text"><a asp-area="" asp-controller="Account" asp-action="SignIn">Sign In</a></li>
+    </ul>
+}

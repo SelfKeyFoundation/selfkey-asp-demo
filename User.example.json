@@ -1,0 +1,39 @@
+{
+  "claim": {
+    "did": "did:key:0x62dfbf9cee9c6eded64d7e0b1e72165f0d26a7c8",
+    "attributes": {
+      "email": "jason@kyc-chain.com",
+      "middle_name": "",
+      "last_name": "Payne",
+      "first_name": "Jason",
+      "country_of_residency": "Netherlands"
+    },
+    "stake": [
+      {
+        "token": "KEY",
+        "balance": 1000
+      },
+      {
+        "token": "BIX,",
+        "balance": 1000
+      }
+    ]
+  },
+  "id": "1",
+  "proof": {
+    "created": "2018-08-31T21:00:00Z",
+    "nonce": "0vZBEKanYA5phnloB3RNqYz6KhGo2mXOw0IA39ATOQuO1AT0dKDRAotpCq4wXOmRUmf05QuyhZ9elm8Clc64eXC5tYZd6XvPxgs9hRrV75isqHvguUjNjssU8lfUsiglCMPnibjK5dpxPU30EuZhtRe8Ysr6FIiVjD3HczAYL3B90ezXkzOCKBlpguqO5EN26scNmLonRwNadf673bfKsovafCQSvmpzirTsXG7VZTCGL1mw0GbXDLYCZLcTpqQB",
+    "signature": "0x42f34823aecfe2ba87e0f906a4dc838b5bf76af3e34bb3b1ff7d515da85e6534431c94fc628eb4eb6cf6f051a9f19ba80e4b85499df1ebe30084411a25ddbfdf1c",
+    "type": "ClaimSignature",
+    "address": "0x2d579e34e20200bb52037b3986e08de46ebfe7da"
+  },
+  "type": [
+    "first_name",
+    "middle_name",
+    "last_name",
+    "email",
+    "country_of_residency"
+  ],
+  "issuer": "self-attested",
+  "issued": "2018-01-01"
+}

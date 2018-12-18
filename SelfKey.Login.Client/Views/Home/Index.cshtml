@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>SelfKey Login</h2>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <br />
+    <p>Click <b>Sign In</b> at the top of the page and sign in with your work or school account.</p>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        @if (ViewData["Response"] != null)
+        {
+            if ((bool)ViewData["Response"])
+            {
+                <span style="color: #008000;">Verification Successful!</span>
+            }
+            else
+            {
+                <span style="color: #ff0000;">Verification Failed!</span>
+            }
+        }
+    </div>
+    <h4>Verification</h4>
+    <p>Enter the user JSON to verify below, then press the 'Verify' button:</p>
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <div><textarea name="userJson" style="width: 100%; resize: vertical; min-height: 200px;">@ViewData["UserJson"]</textarea></div>
+        <div><button type="submit">Verify</button></div>
+    </form>
+}

@@ -1,45 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelfKey.Login.Api;
 using SelfKey.Login.Data.Models;
+using SelfKey.Login.Service.DbContexts;
 
 namespace SelfKey.Login.Service.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
-    [ApiController]
     public class SelfKeyController : Controller
     {
-        private readonly SelfKeyContext _context;
+        private readonly UserDbContext _context;
 
-        public SelfKeyController(SelfKeyContext context) => _context = context;
+        public SelfKeyController(UserDbContext context) => _context = context;
 
         [HttpGet]
-        public ActionResult<List<Payload>> GetAll() => _context.Payloads.ToList();
+        public ActionResult<List<User>> GetAll() => _context.Users.ToList();
 
-        [HttpGet("{id}", Name = "GetPayload")]
-        public ActionResult<Payload> GetById(long id) => _context.Payloads.Find(id) ?? (ActionResult<Payload>)NotFound();
+        [HttpGet("{id}", Name = "GetUser")]
+        public ActionResult<User> GetById(long id) => _context.Users.Find(id) ?? (ActionResult<User>)NotFound();
 
         [HttpPost]
-        public IActionResult Create(Payload payload)
+        public IActionResult Create(User user)
         {
-            _context.Payloads.Add(payload);
+            _context.Users.Add(user);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetPayload", new { payload.Id }, payload);
+            return CreatedAtRoute("GetUser", new { user.Id }, user);
         }
 
-        [HttpPost("{payload, privateKey}")]
-        public ActionResult<Payload> Sign(Payload payload, string privateKey)
+        [HttpPost("verify"), AllowAnonymous]
+        public IActionResult Verify([FromBody]User user)
         {
-            payload.Proof.Signature = Signer.Sign(payload.Proof.Nonce, privateKey);
-            return payload;
+            return Authenticator.Verify(user) ? (IActionResult)Ok() : BadRequest();
         }
 
-        [HttpPost("verify")]
-        public IActionResult Verify(Payload payload)
+        public IActionResult Protected()
         {
-            return Signer.Verify(payload.Proof.Nonce, payload.Proof.Signature, payload.Proof.Address) ? (IActionResult)Ok() : BadRequest();
+            return Ok();
         }
     }
 }
